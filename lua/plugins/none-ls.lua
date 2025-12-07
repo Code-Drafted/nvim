@@ -6,37 +6,80 @@ return {
 		local diagnostics = null_ls.builtins.diagnostics
 		local utils = require("null-ls.utils")
 
-		local root = vim.fn.getcwd()
-		local has_selene = vim.fn.filereadable(root .. "/selene.toml") == 1
-			or vim.fn.filereadable(root .. "/selene.yml") == 1
-
-		local has_clang_tidy = vim.fn.filereadable(root .. "/.clang-tidy") == 1
-
-		local sources = {
-			formatting.stylua,
-			formatting.clang_format,
-		}
-
-		if has_selene then
-			table.insert(sources, diagnostics.selene)
+		local function project_root()
+			return vim.fn.getcwd()
 		end
 
-		if has_clang_tidy then
-			vim.notify("clang-tidy kan niet via none-ls builtin; gebruik het via clangd LSP.", vim.log.levels.WARN)
+		local function has_file(root, filenames)
+			for _, name in ipairs(filenames) do
+				if vim.fn.filereadable(root .. "/" .. name) == 1 then
+					return true
+				end
+			end
+			return false
 		end
+
+		local function has_selene(root)
+			return has_file(root, { "selene.toml", "selene.yml" })
+		end
+
+		local function has_clang_format(root)
+			return has_file(root, { ".clang-format", "_clang-format" })
+		end
+
+		local function has_clang_tidy(root)
+			return has_file(root, { ".clang-tidy" })
+		end
+
+		local function clang_format_source(root)
+			if has_clang_format(root) then
+				return formatting.clang_format.with({
+					extra_args = { "--style=file" },
+				})
+			end
+
+			return formatting.clang_format
+		end
+
+		local function build_sources(root)
+			local sources = {
+				formatting.stylua,
+				clang_format_source(root),
+			}
+
+			if has_selene(root) then
+				table.insert(sources, diagnostics.selene)
+			end
+
+			if has_clang_tidy(root) then
+				vim.notify(
+					"clang-tidy kan niet via none-ls builtin; gebruik het via clangd LSP.",
+					vim.log.levels.WARN
+				)
+			end
+
+			return sources
+		end
+
+		local function setup_format_keymap()
+			vim.keymap.set("n", "<leader>gf", function()
+				vim.lsp.buf.format({
+					filter = function(client)
+						return client.name == "null-ls"
+					end,
+					timeout_ms = 3000,
+				})
+			end, { desc = "Format with none-ls" })
+		end
+
+		local root = project_root()
 
 		null_ls.setup({
-			sources = sources,
+			sources = build_sources(root),
 			root_dir = utils.root_pattern(".clang-format", "_clang-format", ".git", "compile_commands.json"),
 		})
 
-		vim.keymap.set("n", "<leader>gf", function()
-			vim.lsp.buf.format({
-				filter = function(client)
-					return client.name == "null-ls"
-				end,
-				timeout_ms = 3000,
-			})
-		end, { desc = "Format with none-ls" })
+		setup_format_keymap()
 	end,
 }
+
