@@ -1,33 +1,37 @@
 return {
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "nvim-telescope/telescope-ui-select.nvim",
-        config = function()
-          require("telescope").setup({
-            extensions = {
-              ["ui-select"] = require("telescope.themes").get_dropdown(),
-            },
-          })
-          require("telescope").load_extension("ui-select")
-        end,
-      },
-    },
-    config = function()
-      local builtin = require("telescope.builtin")
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-ui-select.nvim",
+				config = function()
+					local telescope = require("telescope")
+					telescope.setup({
+						extensions = {
+							["ui-select"] = require("telescope.themes").get_dropdown(),
+						},
+					})
+					telescope.load_extension("ui-select")
+				end,
+			},
+		},
+		config = function()
+			if vim.fn.executable("rg") == 0 then
+				vim.notify("Ripgrep not found live_grep won't work!", vim.log.levels.WARN)
+			end
 
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find grep" })
-      vim.keymap.set("n", "<leader>cm", builtin.commands, { desc = "Find commands" })
+			local builtin = require("telescope.builtin")
 
-      -- Gebruik native LSP code actions
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {
-        desc = "LSP Code Actions",
-      })
-    end,
-  },
+			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
+			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find grep" })
+			vim.keymap.set("n", "<leader>cm", builtin.commands, { desc = "Find commands" })
+
+			vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+				vim.lsp.buf.code_action()
+			end, { desc = "LSP Code Actions" })
+		end,
+	},
 }
