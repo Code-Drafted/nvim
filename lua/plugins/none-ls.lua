@@ -6,6 +6,8 @@ return {
 		local diagnostics = null_ls.builtins.diagnostics
 		local utils = require("null-ls.utils")
 
+		local GLSL_FTS = { "glsl", "vert", "frag", "geom", "comp", "tesc", "tese" }
+
 		local function project_root()
 			return vim.fn.getcwd()
 		end
@@ -32,19 +34,40 @@ return {
 		end
 
 		local function clang_format_source(root)
+			local base = formatting.clang_format.with({
+				filetypes = vim.tbl_extend("force", formatting.clang_format.filetypes or {}, GLSL_FTS),
+				extra_args = { "--assume-filename=shader.glsl" },
+			})
+
 			if has_clang_format(root) then
-				return formatting.clang_format.with({
-					extra_args = { "--style=file" },
+				return base.with({
+					extra_args = { "--style=file", "--assume-filename=shader.glsl" },
 				})
 			end
 
-			return formatting.clang_format
+			return base
+		end
+
+		local function glsl_lint_source()
+			return diagnostics.glslc.with({
+				filetypes = { "glsl", "vert", "frag", "geom", "comp", "tesc", "tese" },
+				extra_args = {
+					"--target-env=opengl",
+					"-std=330core",
+					"-c",
+
+					"-fauto-map-locations",
+					"-fauto-bind-uniforms",
+				},
+			})
 		end
 
 		local function build_sources(root)
 			local sources = {
 				formatting.stylua,
 				clang_format_source(root),
+
+				glsl_lint_source(),
 			}
 
 			if has_selene(root) then
@@ -52,10 +75,7 @@ return {
 			end
 
 			if has_clang_tidy(root) then
-				vim.notify(
-					"clang-tidy kan niet via none-ls builtin; gebruik het via clangd LSP.",
-					vim.log.levels.WARN
-				)
+				vim.notify("clang-tidy kan niet via none-ls builtin; gebruik het via clangd LSP.", vim.log.levels.WARN)
 			end
 
 			return sources
@@ -82,4 +102,3 @@ return {
 		setup_format_keymap()
 	end,
 }
-
