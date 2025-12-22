@@ -161,13 +161,31 @@ return {
 		opts = {
 			indent = {
 				char = "│",
+				highlight = "IblIndent",
 			},
 			scope = {
 				enabled = true,
 				show_start = true,
 				show_end = false,
+				highlight = "IblScope",
 			},
 		},
+		config = function(_, opts)
+			local hooks = require("ibl.hooks")
+
+			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+				vim.api.nvim_set_hl(0, "IblIndent", {
+					fg = "#34302C",
+				})
+
+				vim.api.nvim_set_hl(0, "IblScope", {
+					fg = "#E16A2D",
+					bold = false,
+				})
+			end)
+
+			require("ibl").setup(opts)
+		end,
 	},
 
 	{

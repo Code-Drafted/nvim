@@ -34,8 +34,11 @@ return {
 		end
 
 		local function clang_format_source(root)
+			local cf_fts = vim.deepcopy(formatting.clang_format.filetypes or {})
+			vim.list_extend(cf_fts, GLSL_FTS)
+
 			local base = formatting.clang_format.with({
-				filetypes = vim.tbl_extend("force", formatting.clang_format.filetypes or {}, GLSL_FTS),
+				filetypes = cf_fts,
 				extra_args = { "--assume-filename=shader.glsl" },
 			})
 
