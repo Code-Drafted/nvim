@@ -418,4 +418,52 @@ return {
 			})
 		end,
 	},
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = {
+			modes = {
+				search = { enabled = true },
+				char = { enabled = true },
+			},
+		},
+		keys = {
+			{
+				"<leader>fs",
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash: Jump",
+			},
+			{
+				"<leader>FS",
+				function()
+					require("flash").treesitter()
+				end,
+				desc = "Flash: Treesitter jump",
+			},
+			{
+				"<leader>fr",
+				function()
+					require("flash").remote()
+				end,
+				mode = "o",
+				desc = "Flash: Remote (operator)",
+			},
+			{
+				"<leader>R",
+				function()
+					require("flash").treesitter_search()
+				end,
+				desc = "Flash: TS Search",
+			},
+			{
+				"<c-s>",
+				function()
+					require("flash").toggle()
+				end,
+				desc = "Flash: Toggle",
+			},
+		},
+	},
 }
