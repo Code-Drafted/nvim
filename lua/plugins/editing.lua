@@ -429,21 +429,21 @@ return {
 		},
 		keys = {
 			{
-				"<leader>fs",
+				"<leader>kf",
 				function()
 					require("flash").jump()
 				end,
 				desc = "Flash: Jump",
 			},
 			{
-				"<leader>FS",
+				"<leader>kd",
 				function()
 					require("flash").treesitter()
 				end,
 				desc = "Flash: Treesitter jump",
 			},
 			{
-				"<leader>fr",
+				"<leader>kr",
 				function()
 					require("flash").remote()
 				end,
@@ -451,18 +451,11 @@ return {
 				desc = "Flash: Remote (operator)",
 			},
 			{
-				"<leader>R",
+				"<leader>kg",
 				function()
 					require("flash").treesitter_search()
 				end,
 				desc = "Flash: TS Search",
-			},
-			{
-				"<c-s>",
-				function()
-					require("flash").toggle()
-				end,
-				desc = "Flash: Toggle",
 			},
 		},
 	},
