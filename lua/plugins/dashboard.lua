@@ -22,7 +22,7 @@ return {
         dashboard.button("f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
         dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
         dashboard.button("s", "  > Settings", ":e $MYVIMRC<CR>"),
-        dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
+        dashboard.button("q", "why?  > Quit NVIM", ":qa<CR>"),
       }
 
       alpha.setup(dashboard.config)

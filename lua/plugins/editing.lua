@@ -80,16 +80,16 @@ return {
 		event = "VeryLazy",
 		opts = {
 			keymaps = {
-				insert = "<C-g>s",
-				insert_line = "<C-g>S",
-				normal = "ys",
-				normal_cur = "yss",
-				normal_line = "yS",
-				normal_cur_line = "ySS",
-				visual = "S",
-				visual_line = "gS",
-				delete = "ds",
-				change = "cs",
+				insert = "<leader>si",
+				insert_line = "<leader>sl",
+				normal = "<leader>snn",
+				normal_cur = "<leader>snc",
+				normal_line = "<leader>snl",
+				normal_cur_line = "<leader>sncl",
+				visual = "<leader>svv",
+				visual_line = "<leader>svl",
+				delete = "<leader>sd",
+				change = "<leader>sd",
 			},
 		},
 	},
@@ -112,127 +112,7 @@ return {
 			},
 		},
 	},
-	{
-		"nvimtools/none-ls.nvim",
-		config = function()
-			local null_ls = require("null-ls")
-			local formatting = null_ls.builtins.formatting
-			local diagnostics = null_ls.builtins.diagnostics
-			local utils = require("null-ls.utils")
 
-			local GLSL_FTS = { "glsl", "vert", "frag", "geom", "comp", "tesc", "tese" }
-
-			local function project_root()
-				return vim.fn.getcwd()
-			end
-
-			local function has_file(root, filenames)
-				for _, name in ipairs(filenames) do
-					if vim.fn.filereadable(root .. "/" .. name) == 1 then
-						return true
-					end
-				end
-				return false
-			end
-
-			local function has_selene(root)
-				return has_file(root, { "selene.toml", "selene.yml" })
-			end
-
-			local function has_clang_format(root)
-				return has_file(root, { ".clang-format", "_clang-format" })
-			end
-
-			local function has_clang_tidy(root)
-				return has_file(root, { ".clang-tidy" })
-			end
-
-			local function clang_format_source(root)
-				local cf_fts = vim.deepcopy(formatting.clang_format.filetypes or {})
-				vim.list_extend(cf_fts, GLSL_FTS)
-
-				local base = formatting.clang_format.with({
-					filetypes = cf_fts,
-					extra_args = { "--assume-filename=shader.glsl" },
-				})
-
-				if has_clang_format(root) then
-					return base.with({
-						extra_args = { "--style=file", "--assume-filename=shader.glsl" },
-					})
-				end
-
-				return base
-			end
-
-			local function glsl_lint_source()
-				return diagnostics.glslc.with({
-					filetypes = { "glsl", "vert", "frag", "geom", "comp", "tesc", "tese" },
-					extra_args = {
-						"--target-env=opengl",
-						"-std=330core",
-						"-c",
-
-						"-fauto-map-locations",
-						"-fauto-bind-uniforms",
-					},
-				})
-			end
-
-			local function build_sources(root)
-				local sources = {
-					formatting.stylua,
-					clang_format_source(root),
-
-					glsl_lint_source(),
-				}
-
-				if has_selene(root) then
-					table.insert(sources, diagnostics.selene)
-				end
-
-				if has_clang_tidy(root) then
-					vim.notify(
-						"clang-tidy kan niet via none-ls builtin; gebruik het via clangd LSP.",
-						vim.log.levels.WARN
-					)
-				end
-
-				return sources
-			end
-
-			local function setup_format_keymap()
-				vim.keymap.set("n", "<leader>gf", function()
-					vim.lsp.buf.format({
-						filter = function(client)
-							return client.name == "null-ls"
-						end,
-						timeout_ms = 3000,
-					})
-				end, { desc = "Format with none-ls" })
-			end
-
-			local root = project_root()
-
-			null_ls.setup({
-				sources = build_sources(root),
-				root_dir = utils.root_pattern(".clang-format", "_clang-format", ".git", "compile_commands.json"),
-			})
-
-			setup_format_keymap()
-		end,
-	},
-	{
-		"mbbill/undotree",
-		keys = {
-			{ "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Undotree: Toggle" },
-		},
-		config = function()
-			vim.g.undotree_WindowLayout = 2
-			vim.g.undotree_ShortIndicators = 1
-			vim.g.undotree_SetFocusWhenToggle = 1
-		end,
-	},
 	{
 		"ThePrimeagen/refactoring.nvim",
 		dependencies = {
@@ -241,7 +121,7 @@ return {
 		},
 		keys = {
 			{
-				"<leader>rr",
+				"<leader>rs",
 				function()
 					require("refactoring").select_refactor()
 				end,
@@ -249,7 +129,7 @@ return {
 				desc = "Refactor: Select",
 			},
 			{
-				"<leader>re",
+				"<leader>ref",
 				function()
 					require("refactoring").refactor("Extract Function")
 				end,
@@ -257,7 +137,7 @@ return {
 				desc = "Refactor: Extract Function",
 			},
 			{
-				"<leader>rf",
+				"<leader>rff",
 				function()
 					require("refactoring").refactor("Extract Function To File")
 				end,
@@ -265,7 +145,7 @@ return {
 				desc = "Refactor: Extract Function To File",
 			},
 			{
-				"<leader>rv",
+				"<leader>rev",
 				function()
 					require("refactoring").refactor("Extract Variable")
 				end,
@@ -273,7 +153,7 @@ return {
 				desc = "Refactor: Extract Variable",
 			},
 			{
-				"<leader>ri",
+				"<leader>riv",
 				function()
 					require("refactoring").refactor("Inline Variable")
 				end,
@@ -281,7 +161,7 @@ return {
 				desc = "Refactor: Inline Variable",
 			},
 			{
-				"<leader>rb",
+				"<leader>reb",
 				function()
 					require("refactoring").refactor("Extract Block")
 				end,
@@ -289,7 +169,7 @@ return {
 				desc = "Refactor: Extract Block",
 			},
 			{
-				"<leader>rB",
+				"<leader>rbf",
 				function()
 					require("refactoring").refactor("Extract Block To File")
 				end,
@@ -318,25 +198,13 @@ return {
 					cxx = true,
 				},
 			})
-
-			vim.keymap.set("v", "<leader>rp", function()
-				require("refactoring").debug.print_var()
-			end, { desc = "Refactor: Debug Print Var" })
-
-			vim.keymap.set("n", "<leader>rP", function()
-				require("refactoring").debug.printf({ below = false })
-			end, { desc = "Refactor: Debug Printf" })
-
-			vim.keymap.set("n", "<leader>rc", function()
-				require("refactoring").debug.cleanup({})
-			end, { desc = "Refactor: Debug Cleanup" })
 		end,
 	},
 	{
 		"monaqa/dial.nvim",
 		keys = {
 			{
-				"<C-a>",
+				"<leader>di",
 				function()
 					require("dial.map").manipulate("increment", "normal")
 				end,
@@ -344,7 +212,7 @@ return {
 				desc = "Dial: Increment",
 			},
 			{
-				"<C-x>",
+				"<leader>dd",
 				function()
 					require("dial.map").manipulate("decrement", "normal")
 				end,
@@ -352,7 +220,7 @@ return {
 				desc = "Dial: Decrement",
 			},
 			{
-				"g<C-a>",
+				"<leader>dgi",
 				function()
 					require("dial.map").manipulate("increment", "gnormal")
 				end,
@@ -360,7 +228,7 @@ return {
 				desc = "Dial: Increment (g)",
 			},
 			{
-				"g<C-x>",
+				"<leader>dgd",
 				function()
 					require("dial.map").manipulate("decrement", "gnormal")
 				end,
@@ -369,7 +237,7 @@ return {
 			},
 
 			{
-				"<C-a>",
+				"<leader>dvi",
 				function()
 					require("dial.map").manipulate("increment", "visual")
 				end,
@@ -377,7 +245,7 @@ return {
 				desc = "Dial: Increment (visual)",
 			},
 			{
-				"<C-x>",
+				"<leader>dvd",
 				function()
 					require("dial.map").manipulate("decrement", "visual")
 				end,
@@ -385,7 +253,7 @@ return {
 				desc = "Dial: Decrement (visual)",
 			},
 			{
-				"g<C-a>",
+				"<leader>dgvi",
 				function()
 					require("dial.map").manipulate("increment", "gvisual")
 				end,
@@ -393,7 +261,7 @@ return {
 				desc = "Dial: Increment (visual g)",
 			},
 			{
-				"g<C-x>",
+				"<leader>dgvd",
 				function()
 					require("dial.map").manipulate("decrement", "gvisual")
 				end,
@@ -482,10 +350,10 @@ return {
 			vim.keymap.set("n", "gp", "<Plug>(YankyGPutAfter)")
 			vim.keymap.set("n", "gP", "<Plug>(YankyGPutBefore)")
 
-			vim.keymap.set("n", "<c-u>", "<Plug>(YankyCycleForward)")
-			vim.keymap.set("n", "<c-i>", "<Plug>(YankyCycleBackward)")
+			vim.keymap.set("n", "<c-h>", "<Plug>(YankyCycleForward)")
+			vim.keymap.set("n", "<c-j>", "<Plug>(YankyCycleBackward)")
 
-            vim.keymap.set("x", "p", "<leader>cp")
+            vim.keymap.set("x", "<leader>cp", "p")
 
 			vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Yank history" })
 		end,

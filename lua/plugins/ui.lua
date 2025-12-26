@@ -30,12 +30,11 @@ return {
 			},
 		},
 	},
+
 	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		keys = {
-			{ "-", "<cmd>Oil<cr>", desc = "Oil: Open parent dir" },
-			{ "<leader>o", "<cmd>Oil<cr>", desc = "Oil: Open" },
 		},
 		opts = {
 			default_file_explorer = true,
@@ -55,7 +54,7 @@ return {
 		config = function(_, opts)
 			require("oil").setup(opts)
 
-			vim.keymap.set("n", "<leader>O", function()
+			vim.keymap.set("n", "<leader>fo", function()
 				require("oil").open_float()
 			end, { desc = "Oil: Open float" })
 		end,
@@ -260,7 +259,12 @@ return {
 			},
 			window = {
 				border = "rounded",
+                padding = { 1, 2, 1, 2 },
 				winblend = 0,
+			},
+			layout = {
+				spacing = 6,
+				align = "center",
 			},
 		},
 	},

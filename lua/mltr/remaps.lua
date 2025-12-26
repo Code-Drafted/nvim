@@ -1,8 +1,5 @@
 -- directories
-vim.keymap.set("n", "<leader>pf", vim.cmd.Ex)
-
---tabs
-vim.keymap.set('n', 'tn', ':tabnew<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>vd", vim.cmd.Ex)
 
 --switching modes
 vim.api.nvim_set_keymap("i", "JK", "<Esc>", { noremap = false })

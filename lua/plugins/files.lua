@@ -47,16 +47,16 @@ return {
 			local builtin = require("telescope.builtin")
 
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+			vim.keymap.set("n", "<leader>fa", builtin.buffers, { desc = "Find buffers" })
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find grep" })
-			vim.keymap.set("n", "<leader>cm", builtin.commands, { desc = "Find commands" })
+			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { desc = "Find grep" })
+			vim.keymap.set("n", "<leader>fs", builtin.commands, { desc = "Find commands" })
 
 			vim.keymap.set("n", "<leader>fi", function()
 				require("telescope.builtin").current_buffer_fuzzy_find()
 			end, { desc = "VSCode-like search" })
 
-			vim.keymap.set({ "n", "v" }, "<leader>ca", function()
+			vim.keymap.set({ "n", "v" }, "<leader>lca", function()
 				vim.lsp.buf.code_action()
 			end, { desc = "LSP Code Actions" })
 		end,
@@ -70,19 +70,19 @@ return {
 		},
 		config = function()
 			local harpoon = require("harpoon")
-			vim.keymap.set("n", "<leader>a", function()
+			vim.keymap.set("n", "<leader>ha", function()
 				harpoon:list():add()
 			end)
-			vim.keymap.set("n", "<C-e>", function()
+			vim.keymap.set("n", "<c-h>", function()
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end)
-			vim.keymap.set("n", "<leader>fl", function()
+			vim.keymap.set("n", "<leader>ht", function()
 				toggle_telescope(harpoon:list())
 			end, { desc = "Open harpoon window" })
-			vim.keymap.set("n", "<C-p>", function()
+			vim.keymap.set("n", "<C-n>", function()
 				harpoon:list():prev()
 			end)
-			vim.keymap.set("n", "<C-n>", function()
+			vim.keymap.set("n", "<C-m>", function()
 				harpoon:list():next()
 			end)
 		end,
@@ -96,7 +96,7 @@ return {
 		cmd = "NvimTreeToggle",
 		keys = {
 			{
-				"<leader>fe",
+				"<C-e>",
 				function()
 					vim.cmd("NvimTreeToggle")
 				end,
