@@ -459,4 +459,35 @@ return {
 			},
 		},
 	},
+	{
+		"gbprod/yanky.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("yanky").setup({
+				highlight = {
+					timer = 200,
+				},
+				preserve_cursor_position = {
+					enabled = true,
+				},
+			})
+
+			require("telescope").load_extension("yank_history")
+
+			vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
+			vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+			vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+			vim.keymap.set("n", "gp", "<Plug>(YankyGPutAfter)")
+			vim.keymap.set("n", "gP", "<Plug>(YankyGPutBefore)")
+
+			vim.keymap.set("n", "<c-u>", "<Plug>(YankyCycleForward)")
+			vim.keymap.set("n", "<c-i>", "<Plug>(YankyCycleBackward)")
+
+            vim.keymap.set("x", "p", "<leader>cp")
+
+			vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Yank history" })
+		end,
+	},
 }
