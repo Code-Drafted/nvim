@@ -204,7 +204,7 @@ return {
 		"monaqa/dial.nvim",
 		keys = {
 			{
-				"<leader>di",
+				"<leader>ji",
 				function()
 					require("dial.map").manipulate("increment", "normal")
 				end,
@@ -212,7 +212,7 @@ return {
 				desc = "Dial: Increment",
 			},
 			{
-				"<leader>dd",
+				"<leader>jd",
 				function()
 					require("dial.map").manipulate("decrement", "normal")
 				end,
@@ -220,7 +220,7 @@ return {
 				desc = "Dial: Decrement",
 			},
 			{
-				"<leader>dgi",
+				"<leader>jgi",
 				function()
 					require("dial.map").manipulate("increment", "gnormal")
 				end,
@@ -228,7 +228,7 @@ return {
 				desc = "Dial: Increment (g)",
 			},
 			{
-				"<leader>dgd",
+				"<leader>jgd",
 				function()
 					require("dial.map").manipulate("decrement", "gnormal")
 				end,
@@ -237,7 +237,7 @@ return {
 			},
 
 			{
-				"<leader>dvi",
+				"<leader>jvi",
 				function()
 					require("dial.map").manipulate("increment", "visual")
 				end,
@@ -245,7 +245,7 @@ return {
 				desc = "Dial: Increment (visual)",
 			},
 			{
-				"<leader>dvd",
+				"<leader>jvd",
 				function()
 					require("dial.map").manipulate("decrement", "visual")
 				end,
@@ -253,7 +253,7 @@ return {
 				desc = "Dial: Decrement (visual)",
 			},
 			{
-				"<leader>dgvi",
+				"<leader>jgvi",
 				function()
 					require("dial.map").manipulate("increment", "gvisual")
 				end,
@@ -261,7 +261,7 @@ return {
 				desc = "Dial: Increment (visual g)",
 			},
 			{
-				"<leader>dgvd",
+				"<leader>jgvd",
 				function()
 					require("dial.map").manipulate("decrement", "gvisual")
 				end,

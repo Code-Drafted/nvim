@@ -16,19 +16,18 @@ return {
     config = function()
       local dap = require("dap")
 
-      vim.keymap.set("n", "<leader>bgn", dap.continue, { desc = "DAP Continue" })
-      vim.keymap.set("n", "<leader>bgo", dap.step_over, { desc = "DAP Step Over" })
+      vim.keymap.set("n", "<leader>dsn", dap.continue, { desc = "DAP Continue" })
+      vim.keymap.set("n", "<leader>dsm", dap.step_over, { desc = "DAP Step Over" })
+      vim.keymap.set("n", "<leader>dsi", dap.step_into, { desc = "DAP Step Into" })
+      vim.keymap.set("n", "<leader>dso", dap.step_out, { desc = "DAP Step Out" })
 
-      vim.keymap.set("n", "<leader>bsi", dap.step_into, { desc = "DAP Step Into" })
-      vim.keymap.set("n", "<leader>bso", dap.step_out, { desc = "DAP Step Out" })
-
-      vim.keymap.set("n", "<leader>bnt", dap.toggle_breakpoint, { desc = "DAP Breakpoint" })
-      vim.keymap.set("n", "<leader>bct", function()
+      vim.keymap.set("n", "<leader>dbn", dap.toggle_breakpoint, { desc = "DAP Breakpoint" })
+      vim.keymap.set("n", "<leader>dbc", function()
         dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
       end, { desc = "DAP Conditional Breakpoint" })
 
-      vim.keymap.set("n", "<leader>bst", dap.terminate, { desc = "DAP Terminate" })
-      vim.keymap.set("n", "<leader>brp", dap.repl.open, { desc = "DAP REPL" })
+      vim.keymap.set("n", "<leader>dst", dap.terminate, { desc = "DAP Terminate" })
+      vim.keymap.set("n", "<leader>dsp", dap.repl.open, { desc = "DAP REPL" })
 
       vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DiagnosticError" })
       vim.fn.sign_define("DapStopped", { text = "▶", texthl = "DiagnosticWarn" })
