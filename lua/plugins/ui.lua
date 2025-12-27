@@ -11,7 +11,7 @@ return {
 				height = 1,
 				options = {
 					number = false,
-					relativenumber = false,
+					relativenumber = true,
 					signcolumn = "no",
 					cursorline = false,
 					foldcolumn = "0",
@@ -32,34 +32,6 @@ return {
 	},
 
 	{
-		"stevearc/oil.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		keys = {
-		},
-		opts = {
-			default_file_explorer = true,
-			columns = { "icon", "permissions", "size", "mtime" },
-			delete_to_trash = true,
-			skip_confirm_for_simple_edits = true,
-			view_options = {
-				show_hidden = true,
-			},
-			float = {
-				padding = 2,
-				max_width = 120,
-				max_height = 40,
-				border = "rounded",
-			},
-		},
-		config = function(_, opts)
-			require("oil").setup(opts)
-
-			vim.keymap.set("n", "<leader>fo", function()
-				require("oil").open_float()
-			end, { desc = "Oil: Open float" })
-		end,
-	},
-	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		dependencies = {
@@ -78,6 +50,7 @@ return {
 					["cmp.entry.get_documentation"] = true,
 				},
 			},
+
 			presets = {
 				bottom_search = true,
 				command_palette = true,
@@ -85,50 +58,62 @@ return {
 				inc_rename = true,
 				lsp_doc_border = true,
 			},
+
+			cmdline = {
+				view = "cmdline_popup",
+			},
+
 			views = {
 				cmdline_popup = {
 					position = {
-						row = math.floor(vim.o.lines * 0.75),
+						row = math.floor(vim.o.lines * 0.90),
 						col = "50%",
 					},
 					size = {
-						width = math.floor(vim.o.columns * 0.8),
+						width = 60,
 						height = "auto",
 					},
-					border = {
-						style = "rounded",
-						padding = { 0, 1 },
-					},
-					win_options = {
-						winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-					},
 				},
+
 				popupmenu = {
 					relative = "editor",
 					position = {
-						row = math.floor(vim.o.lines * 0.75) + 1,
+						row = math.floor(vim.o.lines * 0.90),
 						col = "50%",
 					},
 					size = {
-						width = math.floor(vim.o.columns * 0.6),
+						width = 60,
 						height = 10,
 					},
 					border = {
-						style = "rounded",
-						padding = { 0, 1 },
+						style = "none",
+						padding = { 1, 2 },
 					},
 					win_options = {
-						winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+						winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
 					},
 				},
 			},
+
 			routes = {
 				{
 					filter = {
 						event = "msg_show",
-						kind = "",
 						find = "written",
 					},
+					opts = { skip = true },
+				},
+
+				{
+					filter = {
+						event = "msg_showmode",
+						find = "recording",
+					},
+					opts = { skip = true },
+				},
+
+				{
+					filter = { event = "msg_show", kind = "wmsg", find = "search hit" },
 					opts = { skip = true },
 				},
 			},
@@ -259,7 +244,7 @@ return {
 			},
 			window = {
 				border = "rounded",
-                padding = { 1, 2, 1, 2 },
+				padding = { 1, 2, 1, 2 },
 				winblend = 0,
 			},
 			layout = {

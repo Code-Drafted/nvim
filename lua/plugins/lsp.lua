@@ -46,9 +46,7 @@ return {
 	},
 	{
 		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local null_ls = require("null-ls")
 			local formatting = null_ls.builtins.formatting
@@ -61,6 +59,20 @@ return {
 			-- clang-format uitbreiden met GLSL
 			local clang_fts = vim.deepcopy(formatting.clang_format.filetypes or {})
 			vim.list_extend(clang_fts, GLSL_FTS)
+
+			local function root_has(params, files)
+				local root = params and params.root
+				if not root or root == "" then
+					return false
+				end
+				for _, f in ipairs(files) do
+					local p = root .. "/" .. f
+					if vim.uv.fs_stat(p) then
+						return true
+					end
+				end
+				return false
+			end
 
 			null_ls.setup({
 				debug = false,
@@ -79,8 +91,8 @@ return {
 					formatting.stylua,
 
 					diagnostics.selene.with({
-						condition = function(u)
-							return u.root_has_file({ "selene.toml", "selene.yml" })
+						condition = function(params)
+							return root_has(params, { "selene.toml", "selene.yml" })
 						end,
 					}),
 
@@ -90,7 +102,7 @@ return {
 						extra_args = function(params)
 							local args = { "--assume-filename=shader.glsl" }
 
-							if utils.root_has_file({ ".clang-format", "_clang-format" }) then
+							if root_has(params, { ".clang-format", "_clang-format" }) then
 								table.insert(args, 1, "--style=file")
 							end
 
@@ -111,7 +123,6 @@ return {
 				},
 			})
 
-			-- Keymaps
 			vim.keymap.set("n", "<leader>lf", function()
 				vim.lsp.buf.format({
 					filter = function(client)

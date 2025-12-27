@@ -80,16 +80,16 @@ return {
 		event = "VeryLazy",
 		opts = {
 			keymaps = {
-				insert = "<leader>si",
-				insert_line = "<leader>sl",
-				normal = "<leader>snn",
-				normal_cur = "<leader>snc",
-				normal_line = "<leader>snl",
-				normal_cur_line = "<leader>sncl",
-				visual = "<leader>svv",
-				visual_line = "<leader>svl",
-				delete = "<leader>sd",
-				change = "<leader>sd",
+				insert = "<C-s>i",
+				insert_line = "<C-s>l",
+				normal = "<C-s>nn",
+				normal_cur = "<C-s>nc",
+				normal_line = "<C-s>nl",
+				normal_cur_line = "<C-s>ncl",
+				visual = "<C-s>vv",
+				visual_line = "<C-s>vl",
+				delete = "<C-s>d",
+				change = "<C-s>c",
 			},
 		},
 	},
@@ -350,10 +350,10 @@ return {
 			vim.keymap.set("n", "gp", "<Plug>(YankyGPutAfter)")
 			vim.keymap.set("n", "gP", "<Plug>(YankyGPutBefore)")
 
-			vim.keymap.set("n", "<c-h>", "<Plug>(YankyCycleForward)")
-			vim.keymap.set("n", "<c-j>", "<Plug>(YankyCycleBackward)")
+			vim.keymap.set("n", "<c-y>f", "<Plug>(YankyCycleForward)")
+			vim.keymap.set("n", "<c-y>b", "<Plug>(YankyCycleBackward)")
 
-            vim.keymap.set("x", "<leader>cp", "p")
+            vim.keymap.set("x", "<leader>p", "\"_dP")
 
 			vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Yank history" })
 		end,

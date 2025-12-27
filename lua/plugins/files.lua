@@ -46,7 +46,7 @@ return {
 
 			local builtin = require("telescope.builtin")
 
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
+			vim.keymap.set("n", "<leader>fp", builtin.help_tags, { desc = "Find help" })
 			vim.keymap.set("n", "<leader>fa", builtin.buffers, { desc = "Find buffers" })
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
 			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { desc = "Find grep" })
@@ -54,7 +54,7 @@ return {
 
 			vim.keymap.set("n", "<leader>fi", function()
 				require("telescope.builtin").current_buffer_fuzzy_find()
-			end, { desc = "VSCode-like search" })
+			end, { desc = "find in current buffer" })
 
 			vim.keymap.set({ "n", "v" }, "<leader>lca", function()
 				vim.lsp.buf.code_action()
@@ -70,13 +70,13 @@ return {
 		},
 		config = function()
 			local harpoon = require("harpoon")
-			vim.keymap.set("n", "<leader>ha", function()
+			vim.keymap.set("n", "<leader>fj", function()
 				harpoon:list():add()
 			end)
 			vim.keymap.set("n", "<c-h>", function()
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end)
-			vim.keymap.set("n", "<leader>ht", function()
+			vim.keymap.set("n", "<leader>fh", function()
 				toggle_telescope(harpoon:list())
 			end, { desc = "Open harpoon window" })
 			vim.keymap.set("n", "<C-n>", function()
@@ -86,6 +86,35 @@ return {
 				harpoon:list():next()
 			end)
 		end,
+	},
+
+	{
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+
+		init = function()
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
+		end,
+
+		keys = {
+			{
+				"<leader>fo",
+				function()
+					require("oil").open_float()
+				end,
+				desc = "Oil: Open float",
+			},
+		},
+
+		opts = {
+			default_file_explorer = true,
+			columns = { "icon", "permissions", "size", "mtime" },
+			delete_to_trash = true,
+			skip_confirm_for_simple_edits = true,
+			view_options = { show_hidden = true },
+			float = { padding = 2, max_width = 120, max_height = 40, border = "rounded" },
+		},
 	},
 
 	{
