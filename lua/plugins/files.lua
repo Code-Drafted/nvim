@@ -91,26 +91,22 @@ return {
 	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-
 		init = function()
 			vim.g.loaded_netrw = 1
 			vim.g.loaded_netrwPlugin = 1
 		end,
-
 		keys = {
 			{
 				"<leader>fo",
 				function()
-					require("oil").open_float()
+					require("oil").open_float(vim.fn.getcwd())
 				end,
-				desc = "Oil: Open float",
+				desc = "Oil: Open float (cwd)",
 			},
 		},
-
 		opts = {
 			default_file_explorer = true,
-			columns = { "icon", "permissions", "size", "mtime" },
-			delete_to_trash = true,
+			columns = { "icon", "size", "mtime" },
 			skip_confirm_for_simple_edits = true,
 			view_options = { show_hidden = true },
 			float = { padding = 2, max_width = 120, max_height = 40, border = "rounded" },

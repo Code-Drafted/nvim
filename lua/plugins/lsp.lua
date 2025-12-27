@@ -1,35 +1,5 @@
 return {
 	{
-		"williamboman/mason.nvim",
-		opts = {
-			ui = {
-				icons = {
-					package_installed = "v",
-					package_pending = "o",
-					package_uninstalled = "x",
-				},
-			},
-		},
-
-		build = ":MasonUpdate",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"neovim/nvim-lspconfig",
-		},
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls" },
-				automatic_installation = true,
-			})
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
 	},
 	{
@@ -131,6 +101,47 @@ return {
 					timeout_ms = 10000,
 				})
 			end, { desc = "Format buffer (none-ls)" })
+		end,
+	},
+
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			opts = {
+				log_level = "INFO",
+			},
+
+			interactions = {
+				chat = {
+					adapter = {
+						name = "ollama",
+						model = "qwen2.5:7b-instruct",
+					},
+				},
+				inline = {
+					adapter = {
+						name = "ollama",
+						model = "qwen2.5:7b-instruct",
+					},
+				},
+				cmd = {
+					adapter = {
+						name = "ollama",
+						model = "qwen2.5:7b-instruct",
+					},
+				},
+			},
+		},
+		config = function(_, opts)
+			require("codecompanion").setup(opts)
+
+			vim.keymap.set("n", "<leader>cc", "<cmd>CodeCompanionChat<cr>", { desc = "CodeCompanion Chat" })
+			vim.keymap.set("n", "<leader>ci", "<cmd>CodeCompanion<cr>", { desc = "CodeCompanion Inline" })
+			vim.keymap.set("n", "<leader>cm", "<cmd>CodeCompanionCmd<cr>", { desc = "CodeCompanion Cmd" })
 		end,
 	},
 }

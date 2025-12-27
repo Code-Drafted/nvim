@@ -353,7 +353,7 @@ return {
 			vim.keymap.set("n", "<c-y>f", "<Plug>(YankyCycleForward)")
 			vim.keymap.set("n", "<c-y>b", "<Plug>(YankyCycleBackward)")
 
-            vim.keymap.set("x", "<leader>p", "\"_dP")
+			vim.keymap.set("x", "<leader>p", '"_dP')
 
 			vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Yank history" })
 		end,

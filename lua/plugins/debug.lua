@@ -1,6 +1,4 @@
 return {
-  { "williamboman/mason.nvim", config = true },
-
   {
     "jay-babu/mason-nvim-dap.nvim",
     dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
