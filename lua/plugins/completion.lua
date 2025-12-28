@@ -29,21 +29,10 @@ return {
 				},
 
 				mapping = cmp.mapping.preset.insert({
-					["<C-k>"] = cmp.mapping(function(fallback)
-						if luasnip.jumpable(1) then
-							luasnip.jump(1)
-						elseif luasnip.expandable() then
-							luasnip.expand()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
 
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if luasnip.jumpable(1) then
 							luasnip.jump(1)
-						elseif cmp.visible() then
-							cmp.select_next_item()
 						else
 							fallback()
 						end
@@ -52,12 +41,34 @@ return {
 					["<S-Tab>"] = cmp.mapping(function(fallback)
 						if luasnip.jumpable(-1) then
 							luasnip.jump(-1)
-						elseif cmp.visible() then
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					["<C-j>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					["<C-k>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
 							cmp.select_prev_item()
 						else
 							fallback()
 						end
 					end, { "i", "s" }),
+
+					["C-l"] = cmp.mapping(function(fallback)
+						if luasnip.expandable() then
+							luasnip.expand()
+						else
+							fallback()
+						end
+					end),
 
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
