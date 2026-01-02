@@ -362,7 +362,7 @@ return {
 		"mbbill/undotree",
 
 		keys = {
-			{ "<C-u>", "<cmd>UndotreeToggle<CR>", desc = "Undotree: Toggle" },
+			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undotree: Toggle" },
 		},
 
 		config = function()
