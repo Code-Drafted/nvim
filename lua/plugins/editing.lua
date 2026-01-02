@@ -360,8 +360,17 @@ return {
 			vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Yank history" })
 		end,
 	},
-    {
-        "mbbill/undotree",
 
-    },
+	{
+		"mbbill/undotree",
+
+		keys = {
+			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Undotree: Toggle" },
+		},
+
+		config = function()
+			vim.opt.undofile = true
+			vim.g.undotree_SetFocusWhenToggle = 1
+		end,
+	},
 }
