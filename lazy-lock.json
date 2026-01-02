@@ -55,6 +55,7 @@
   "undotree": { "branch": "master", "commit": "178d19e00a643f825ea11d581b1684745d0c4eda" },
   "vim-be-good": { "branch": "master", "commit": "0ae3de14eb8efc6effe7704b5e46495e91931cc5" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
+  "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "yanky.nvim": { "branch": "main", "commit": "04fc42b94305d94948c9c197f679336668af3292" },
   "zen-mode.nvim": { "branch": "main", "commit": "8564ce6d29ec7554eb9df578efa882d33b3c23a7" }
