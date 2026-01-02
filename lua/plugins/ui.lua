@@ -234,6 +234,10 @@ return {
 	},
 
 	{
+		{ "echasnovski/mini.icons", version = false },
+	},
+
+	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -242,7 +246,7 @@ return {
 				registers = true,
 				spelling = { enabled = true, suggestions = 20 },
 			},
-			window = {
+			win = {
 				border = "rounded",
 				padding = { 1, 2, 1, 2 },
 				winblend = 0,

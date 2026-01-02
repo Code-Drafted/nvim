@@ -51,6 +51,7 @@ return {
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
 			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { desc = "Find grep" })
 			vim.keymap.set("n", "<leader>fs", builtin.commands, { desc = "Find commands" })
+			vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Find git files" })
 
 			vim.keymap.set("n", "<leader>fi", function()
 				require("telescope.builtin").current_buffer_fuzzy_find()
@@ -92,9 +93,9 @@ return {
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		keys = {
-            init = function()
-                vim.keymap.del("n", "-");
-            end,
+			init = function()
+				vim.keymap.del("n", "-")
+			end,
 
 			{
 				"<leader>fo",
