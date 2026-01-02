@@ -111,7 +111,17 @@ function M.colorscheme()
 	set(0, "TelescopeResultsTitle", { fg = colors.bg, bg = colors.border, bold = true })
 	set(0, "TelescopePreviewTitle", { fg = colors.bg, bg = colors.func, bold = true })
 
-	-- Netrw / titles / directories: haal blauw weg bij openen
+	-- cmp highlight groups
+	vim.api.nvim_set_hl(0, "CmpItemAbbr", { link = "Normal" })
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { link = "Identifier" })
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "Identifier" })
+	vim.api.nvim_set_hl(0, "CmpItemMenu", { link = "Comment" })
+	vim.api.nvim_set_hl(0, "CmpItemKind", { link = "Type" })
+	vim.api.nvim_set_hl(0, "CmpItemKindFunction", { link = "Function" })
+	vim.api.nvim_set_hl(0, "CmpItemKindVariable", { link = "Identifier" })
+	vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { link = "Special" })
+
+	-- Netrw / titles / directories
 	set(0, "Directory", { fg = colors.func })
 	set(0, "Title", { fg = colors.func, bold = true })
 

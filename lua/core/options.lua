@@ -29,13 +29,3 @@ vim.opt.isfname:append("@-@")
 -- update
 vim.opt.updatetime = 50
 
--- cmp highlight groups
-vim.api.nvim_set_hl(0, "CmpItemAbbr", { link = "Normal" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { link = "Identifier" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "Identifier" })
-vim.api.nvim_set_hl(0, "CmpItemMenu", { link = "Comment" })
-vim.api.nvim_set_hl(0, "CmpItemKind", { link = "Type" })
-vim.api.nvim_set_hl(0, "CmpItemKindFunction", { link = "Function" })
-vim.api.nvim_set_hl(0, "CmpItemKindVariable", { link = "Identifier" })
-vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { link = "Special" })
-
