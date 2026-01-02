@@ -91,11 +91,11 @@ return {
 	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		init = function()
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
-		end,
 		keys = {
+            init = function()
+                vim.keymap.del("n", "-");
+            end,
+
 			{
 				"<leader>fo",
 				function()
@@ -105,7 +105,7 @@ return {
 			},
 		},
 		opts = {
-			default_file_explorer = true,
+			default_file_explorer = false,
 			columns = { "icon", "size", "mtime" },
 			skip_confirm_for_simple_edits = true,
 			view_options = { show_hidden = true },
