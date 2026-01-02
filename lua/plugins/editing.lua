@@ -32,6 +32,8 @@ return {
 		end,
 	},
 
+	{ "nvim-treesitter/playground" },
+
 	{
 		"folke/todo-comments.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -358,4 +360,8 @@ return {
 			vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Yank history" })
 		end,
 	},
+    {
+        "mbbill/undotree",
+
+    },
 }

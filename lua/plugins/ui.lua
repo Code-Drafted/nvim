@@ -246,14 +246,19 @@ return {
 				registers = true,
 				spelling = { enabled = true, suggestions = 20 },
 			},
+
 			win = {
 				border = "rounded",
 				padding = { 1, 2, 1, 2 },
-				winblend = 0,
 			},
+
 			layout = {
 				spacing = 6,
 				align = "center",
+			},
+
+			wo = {
+				winblend = 20,
 			},
 		},
 	},
