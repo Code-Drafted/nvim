@@ -20,6 +20,7 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+			local lspkind = require("lspkind")
 
 			cmp.setup({
 				snippet = {
@@ -62,7 +63,7 @@ return {
 						end
 					end, { "i", "s" }),
 
-					["C-i"] = cmp.mapping(function(fallback)
+					["<C-p>"] = cmp.mapping(function(fallback)
 						if luasnip.expandable() then
 							luasnip.expand()
 						else
@@ -73,11 +74,38 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 
+				window = {
+					completion = cmp.config.window.bordered({
+						border = "rounded", -- zet op "none" voor super-clean
+						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+					}),
+					documentation = cmp.config.window.bordered({
+						border = "rounded",
+						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,Search:None",
+					}),
+				},
+
+				formatting = {
+					fields = { "kind", "abbr", "menu" },
+					format = lspkind.cmp_format({
+						mode = "symbol_text", -- NVChad vibe
+						maxwidth = 50,
+						ellipsis_char = "…",
+						menu = {
+							nvim_lsp = "[LSP]",
+							luasnip = "[Snip]",
+							buffer = "[Buf]",
+							path = "[Path]",
+							copilot = "[AI]",
+						},
+					}),
+				},
+
 				sources = {
 					{ name = "luasnip", priority = 1000 },
 					{ name = "copilot", priority = 900 },
 					{ name = "nvim_lsp", priority = 500 },
-					{ name = "buffer", priority = 350 },
+					{ name = "buffer", priority = 450 },
 					{ name = "path", priority = 200 },
 				},
 			})

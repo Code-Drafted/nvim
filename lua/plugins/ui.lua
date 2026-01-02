@@ -234,7 +234,13 @@ return {
 	},
 
 	{
-		{ "echasnovski/mini.icons", version = false },
+		"echasnovski/mini.icons",
+		version = false,
+	},
+
+	{
+		"onsails/lspkind.nvim",
+		lazy = true,
 	},
 
 	{
