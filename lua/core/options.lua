@@ -12,8 +12,16 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
--- crash recovery
-vim.opt.swapfile = true
+-- recovery
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+
+local undodir = vim.fn.stdpath("data") .. "/undodir"
+if not vim.loop.fs_stat(undodir) then
+	vim.fn.mkdir(undodir, "p")
+end
+vim.opt.undodir = undodir
 
 -- search
 vim.opt.incsearch = true
@@ -29,3 +37,5 @@ vim.opt.isfname:append("@-@")
 -- update
 vim.opt.updatetime = 50
 
+--lsp
+vim.opt.signcolumn = "yes"
