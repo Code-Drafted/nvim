@@ -29,7 +29,14 @@ vim.keymap.set("n", "<leaderd", "\"_d")
 vim.keymap.set("v", "<leaderd", "\"_d")
 
 -- quickfix list
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-c>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-x>", "<cmd>cprev<CR>zz")
 
+-- replacing
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<left><left><left>")
+
+-- moving between windows
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
