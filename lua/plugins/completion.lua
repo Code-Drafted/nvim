@@ -76,8 +76,8 @@ return {
 
 				window = {
 					completion = cmp.config.window.bordered({
-						border = "rounded", -- zet op "none" voor super-clean
-						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+						border = "rounded",
+						winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:CmpPmenuSel,Search:None",
 					}),
 					documentation = cmp.config.window.bordered({
 						border = "rounded",
