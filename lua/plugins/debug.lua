@@ -209,7 +209,7 @@ return {
       dap.listeners.before.event_terminated["dapui"] = function() dapui.close() end
       dap.listeners.before.event_exited["dapui"] = function() dapui.close() end
 
-      vim.keymap.set("n", "<leader>bgu", dapui.toggle, { desc = "DAP UI Toggle" })
+      vim.keymap.set("n", "<leader>dgu", dapui.toggle, { desc = "DAP UI Toggle" })
     end,
   },
 

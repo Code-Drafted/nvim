@@ -354,7 +354,7 @@ return {
 
 			vim.keymap.set("n", "<c-y>f", "<Plug>(YankyCycleForward)")
 			vim.keymap.set("n", "<c-y>b", "<Plug>(YankyCycleBackward)")
-            vim.keymap.set("n", "<c-y>h", "<cmd>Telescope yank_history<cr>")
+			vim.keymap.set("n", "<c-y>h", "<cmd>Telescope yank_history<cr>")
 		end,
 	},
 
@@ -368,6 +368,34 @@ return {
 		config = function()
 			vim.opt.undofile = true
 			vim.g.undotree_SetFocusWhenToggle = 1
+		end,
+	},
+	{
+		"chentoast/marks.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("marks").setup({
+				sign_priority = 10,
+				builtin_marks = {},
+				cyclic = true,
+				default_mappings = false,
+
+				force_write_shada = false,
+
+				excluded_buftypes = { "nofile", "prompt", "terminal" },
+				excluded_filetypes = { "TelescopePrompt", "lazy", "mason", "help" },
+			})
+
+			vim.keymap.set("n", "<leader>mt", "<cmd>MarksToggleSigns<CR>", { desc = "Marks: toggle signs" })
+
+			vim.keymap.set("n", "<leader>ml", "<cmd>MarksListBuf<CR>", { desc = "Marks: list buffer" })
+			vim.keymap.set("n", "<leader>mg", "<cmd>MarksListGlobal<CR>", { desc = "Marks: list global" })
+
+			vim.keymap.set("n", "<leader>mv", "<Plug>(Marks-preview)", { desc = "Marks: preview (float)" })
+			vim.keymap.set("n", "<leader>mc", "<Plug>(Marks-deletebuf)", { desc = "Marks: clear buffer marks" })
+
+			vim.keymap.set("n", "]m", "<Plug>(Marks-next)", { desc = "Marks: next" })
+			vim.keymap.set("n", "[m", "<Plug>(Marks-prev)", { desc = "Marks: prev" })
 		end,
 	},
 }
