@@ -31,7 +31,7 @@ return {
 
 				mapping = cmp.mapping.preset.insert({
 
-					["<C-p>"] = cmp.mapping(function(fallback)
+					["<C-x>"] = cmp.mapping(function(fallback)
 						if luasnip.jumpable(1) then
 							luasnip.jump(1)
 						else
@@ -39,7 +39,7 @@ return {
 						end
 					end, { "i", "s" }),
 
-					["<C-o>"] = cmp.mapping(function(fallback)
+					["<C-z>"] = cmp.mapping(function(fallback)
 						if luasnip.jumpable(-1) then
 							luasnip.jump(-1)
 						else
@@ -62,14 +62,6 @@ return {
 							fallback()
 						end
 					end, { "i", "s" }),
-
-					["<C-p>"] = cmp.mapping(function(fallback)
-						if luasnip.expandable() then
-							luasnip.expand()
-						else
-							fallback()
-						end
-					end),
 
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
