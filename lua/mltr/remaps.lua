@@ -1,6 +1,3 @@
--- disables
-vim.keymap.set("n", "=", "<nop>")
-
 -- directories
 vim.keymap.set("n", "<leader>vd", vim.cmd.Ex)
 
